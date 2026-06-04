@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learning Quiz</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("bekgroud\ english\ -\ Diedit.jpg");
+            text-align: center;
+            background-repeat: repeat;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 50%;
+            margin: auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(9, 128, 175, 0.6);
+        }
+
+        h1 {
+            font-family: 'Times New Roman', serif;
+        }
+
+        .description {
+            font-family: 'Times New Roman', serif;
+            font-size: 20px;
+        }
+
+        .question {
+            font-size: 22px;
+            margin: 25px 0;
+            font-weight: bold;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            background-color: #0077cc;
+            color: white;
+            font-size: 17px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>English Learning</h1>
+        <p class="description">Answer the following questions:</p>
+
+        <div class="question" id="question"></div>
+
+        <button onclick="checkAnswer('A')" id="btnA"></button>
+        <button onclick="checkAnswer('B')" id="btnB"></button>
+        <button onclick="checkAnswer('C')" id="btnC"></button>
+        <button onclick="checkAnswer('D')" id="btnD"></button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Nomor soal yang sedang ditampilkan
+        let currentQuestion = 0;
+
+        // Nilai jawaban benar
+        let score = 0;
+
+        // Data soal quiz
+        const questions = [
+            {
+        question: "She ___ to school every day.",
+        options: ["go", "goes", "going", "gone"],
+        correct: "B"
+    },
+    {
+        question: "They ___ playing football now.",
+        options: ["is", "am", "are", "be"],
+        correct: "C"
+    },
+    {
+        question: "I ___ a student.",
+        options: ["is", "am", "are", "be"],
+        correct: "B"
+    },
+    {
+        question: "We ___ breakfast every morning.",
+        options: ["eat", "eats", "eating", "ate"],
+        correct: "A"
+    },
+    {
+        question: "He ___ watching TV right now.",
+        options: ["is", "are", "am", "be"],
+        correct: "A"
+    },
+
+    {
+        question: "My mother ___ in a hospital.",
+        options: ["work", "works", "working", "worked"],
+        correct: "B"
+    },
+    {
+        question: "The cat ___ under the table.",
+        options: ["is", "are", "am", "be"],
+        correct: "A"
+    },
+    {
+        question: "They ___ English every Monday.",
+        options: ["study", "studies", "studying", "studied"],
+        correct: "A"
+    },
+    {
+        question: "Ana and Siti ___ best friends.",
+        options: ["is", "am", "are", "be"],
+        correct: "C"
+    },
+    {
+        question: "We ___ going to the market now.",
+        options: ["is", "am", "are", "be"],
+        correct: "C"
+    }
+        ];  
+
+        // Fungsi untuk menampilkan soal
+        function loadQuestion() {
+            let soal = questions[currentQuestion];
+
+            document.getElementById("question").innerHTML = soal.question;
+            document.getElementById("btnA").innerHTML = "A. " + soal.options[0];
+            document.getElementById("btnB").innerHTML = "B. " + soal.options[1];
+            document.getElementById("btnC").innerHTML = "C. " + soal.options[2];
+            document.getElementById("btnD").innerHTML = "D. " + soal.options[3];
+        }
+
+        // Fungsi untuk mengecek jawaban
+        function checkAnswer(answer) {
+            let result = document.getElementById("result");
+
+            if (answer === questions[currentQuestion].correct) {
+                score++;
+                result.innerHTML = "✅ Correct Answer!";
+                result.style.color = "green";
+            } else {
+                result.innerHTML = "❌ Wrong Answer!";
+                result.style.color = "red";
+            }
+
+            // Pindah ke soal berikutnya setelah 1,5 detik
+            setTimeout(nextQuestion, 1500);
+        }
+
+        // Fungsi untuk lanjut ke soal berikutnya
+        function nextQuestion() {
+            currentQuestion++;
+
+            if (currentQuestion < questions.length) {
+                document.getElementById("result").innerHTML = "";
+                loadQuestion();
+            } else {
+                showFinalScore();
+            }
+        }
+
+        // Fungsi untuk menampilkan nilai akhir
+        function showFinalScore() {
+            document.querySelector(".container").innerHTML = `
+                <h1>Quiz Finished 🎉</h1>
+                <p>Your score: ${score} from ${questions.length}</p>
+            `;
+        }
+
+        // Menjalankan soal pertama
+        loadQuestion();
+    </script>
+
+</body>
+</html>
